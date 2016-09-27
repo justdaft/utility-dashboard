@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/justdaft/utility-dashboard/issues"
   },
-  "homepage": "https://github.com/justdaft/utility-dashboard#readme"
+  "homepage": "https://github.com/justdaft/utility-dashboard#readme",
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^3.5.5",
+    "username": "^2.2.2"
+  }
 }
