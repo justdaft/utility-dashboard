@@ -2,6 +2,10 @@
 
 var blessed = require('blessed')
 var contrib = require('blessed-contrib')
+var scan = require('./scan');
+
+
+
 var screen = blessed.screen()
 var fs = require('fs');
 var username = require('username');
@@ -38,11 +42,36 @@ var box4 = grid.set(5, 5, 5, 5, blessed.box, { content: 'My Box4' })
 var box5 = grid.set(10, 0, 2, 12, blessed.box, { label: 'Logs', content:'Directory: ' + __dirname + '/logs' })
 var box6 = grid.set(0, 10, 10, 2, blessed.box, { content: 'My Box6' })
 
+var log = grid.set(10, 0, 2, 12, contrib.log, 
+  { fg: "green"
+  , selectedFg: "green"
+  , label: 'Server Log'})
+
+var table =  grid.set(10, 0, 2, 12, contrib.table, 
+  { keys: true
+  , fg: 'green'
+  , label: 'Active Processes'
+  , columnSpacing: 1
+  , columnWidth: [24, 10, 10]})
+
+var tree = scan('.', 'files');
+
+// table.setData(data: tree})
 
 screen.render()
 // box2.content = blessed.list();
 
-setInterval(function () {
-    // generateTable()
-    screen.render()
-}, 500)
+
+
+console.log(tree);
+
+// setInterval(function () {
+//     // generateTable()
+//     screen.render()
+// }, 500)
+
+  screen.key(['escape', 'q', 'C-c'], function(ch, key) {
+     return process.exit(0);
+   });
+
+
