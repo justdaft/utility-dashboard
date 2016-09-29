@@ -8,6 +8,16 @@ var fs = require('fs');
 var os = require('os');
 var username = require('username');
 var uname = ''
+var _ = require('lodash');
+
+var osNet = os.networkInterfaces().en0;
+
+var xx = _.pickBy(osNet, {family: 'IPv4'});
+
+
+var zzz = _.find(xx);
+
+console.log(zzz);
 
 username().then(usern => {
   uname = usern;
@@ -70,6 +80,7 @@ function generateUserDateTable() {
   var osUptime = 'Uptime: ' + os.uptime();
   var userHomeDir = 'Home Dir: ' + os.homedir();
   var osLoadAvg = 'CPU Average Load: ' + os.loadavg();
+  var osNet = 'Net: ' + zzz.mac  + ' IP:' + zzz.address + ' mask: ' + zzz.netmask ;
 
   userDataTable.setData(
     {
@@ -81,14 +92,15 @@ function generateUserDateTable() {
         [osTotalMem],
         [osUptime],
         [userHomeDir],
-        [osLoadAvg]
+        [osLoadAvg],
+        [osNet]
       ]
     })
 }
 
 function generateTable() {
   var data = []
-  var tree = scan('.', 'files');
+  var tree = scan('./folder_to_watch', 'files');
   for (var i = 0; i < tree.items.length; i++) {
     var row = []
     row.push(tree.items[i].name)
